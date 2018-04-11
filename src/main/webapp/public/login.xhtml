@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Login</title>
+    </h:head>
+    <h:body>
+          <ui:composition template="./../template.xhtml">
+            <ui:define name="content">
+                <div class="container blogcontenedor z-depth-5">
+                    <div class="row">
+                        <div class="col s6 offset-s4 m6 offset-m3 card-panel white login-contendor">
+                            <h:form prependId="false" id="loginForm">
+                                <div class="teal title-form"><h3 class="texto-rot flow-text">Login</h3></div>
+                                <div class="btn-float-send  z-depth-2 ">
+                                    <a class="btn waves-effect waves-light">
+                                        Iniciar
+                                        <i class="material-icons right">send</i>
+                                    </a>
+                                </div>
+                                <div class="btn-float-register">
+                                    <p:link outcome="registro.bloggestter" class="btn btn-floating btn-large waves-effect waves-light z-depth-2">
+                                        <i class="material-icons right">create</i>
+                                    </p:link>
+                                </div>
+                                <div class="row">
+                                    <div class="col s10 m7 offset-s2 offset-m2 input-field">
+                                        <h:inputText id="usuario" class="validate" />
+                                        <label for="usuario">Correo</label>
+                                    </div>
+                                    <div class="col s5 m7 offset-s2 offset-m2  input-field">
+                                        <h:inputSecret id="contra"  class="validate">
+                                            <label for="contra">Contraseña</label>
+                                        </h:inputSecret>
+                                    </div>
+                                    <div class="col s7 m7 offset-m2">
+                                        <a>
+                                            <p>¿olvidaste tú contraseña?</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
