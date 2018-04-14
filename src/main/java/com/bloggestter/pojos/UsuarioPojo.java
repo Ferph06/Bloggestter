@@ -29,7 +29,7 @@ public class UsuarioPojo implements Serializable {
     private String usuarioUserName;
     private int idtipoUsuario;
     private int idIdioma;
-
+    
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -125,7 +125,11 @@ public class UsuarioPojo implements Serializable {
     public void setIdIdioma(int idIdioma) {
         this.idIdioma = idIdioma;
     }
-
+    /**
+     * 
+     * @param u
+     * @return 
+     */
     public static List<QueryParameterPojo> parametersCU(UsuarioPojo u) {
         List<QueryParameterPojo> qlist = new ArrayList<>();
         qlist.add(new QueryParameterPojo(1, u.getUsuarioNombre(), 2));

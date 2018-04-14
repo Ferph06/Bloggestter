@@ -30,7 +30,7 @@ public class DAOGenerico implements Serializable {
 
     private DataSource datasource;
     private final String pool = "jdbc/Bloggestter";
-    private final Connection connection;
+    private Connection connection;
     private ResultSet result;
     private PreparedStatement prepared;
     private Statement statemt;
@@ -47,6 +47,7 @@ public class DAOGenerico implements Serializable {
             Logger.getLogger(DAOGenerico.class.getName()).log(Level.SEVERE, "Error init generico", ex);
         }
     }
+
     /**
      * Metodo constructor que incia el es data source
      */
@@ -54,6 +55,7 @@ public class DAOGenerico implements Serializable {
         init();
         connection = this.crearConexion();
     }
+
     /**
      * Metodo con el cual se crea la conexion
      *
@@ -68,8 +70,8 @@ public class DAOGenerico implements Serializable {
         }
         return connectionreturn;
     }
-    
-     /**
+
+    /**
      * Metodo con el cual se cierra la conexion
      */
     private void quitarConexion() {
@@ -116,7 +118,7 @@ public class DAOGenerico implements Serializable {
         this.cerrarAuxiliares();
         this.quitarConexion();
     }
-    
+
     /**
      * Metodo para hace una busqueda por los parametros necesarios los
      * parametros van junto a su tipo separados por comas
@@ -126,6 +128,7 @@ public class DAOGenerico implements Serializable {
      * @return el resultado de la consulta ResultSet
      */
     public ResultSet sqlAction(Map<String, Object> consulta, List<QueryParameterPojo> parametros) {
+        connection = this.crearConexion();
         query = (String) consulta.get("query");
         int tipo = (int) consulta.get("tipo");
         if (tipo == 0) {
@@ -146,20 +149,26 @@ public class DAOGenerico implements Serializable {
         }
         return result;
     }
-    
-    public boolean CUD(String consulta,List<QueryParameterPojo> parametros){
-        boolean exito=false;
+    /**
+     * Metodo con el cual se agrega la consulta para un create,update o delete
+     * @param consulta
+     * @param parametros
+     * @return 
+     */
+    public boolean CUD(String consulta, List<QueryParameterPojo> parametros) {
+        boolean exito = false;
         try {
-                prepared = connection.prepareStatement(query);
-                this.agregarCampos(parametros);
-                exito=prepared.executeUpdate()==1;
-            } catch (SQLException ex) {
-                Logger.getLogger(DAOGenerico.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        
+            connection = this.crearConexion();
+            prepared = connection.prepareStatement(consulta);
+            this.agregarCampos(parametros);
+            exito = prepared.executeUpdate() == 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGenerico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return exito;
     }
-    
+
     /**
      * Metodo con el cual se agregan los campos a la query
      *
@@ -175,7 +184,7 @@ public class DAOGenerico implements Serializable {
         });
         parametros.stream().filter(l -> l.getTipo() == 2).forEachOrdered(l -> {
             try {
-                prepared.setNString(l.getPosicion(), QueryParameterPojo.convertirATexto(l));
+                prepared.setString(l.getPosicion(), QueryParameterPojo.convertirATexto(l));
             } catch (SQLException ex) {
                 Logger.getLogger(DAOGenerico.class.getName()).log(Level.SEVERE, null, ex);
             }

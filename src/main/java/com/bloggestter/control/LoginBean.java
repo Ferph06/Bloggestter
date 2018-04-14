@@ -8,6 +8,7 @@ package com.bloggestter.control;
 import com.bloggestter.dao.UsuarioDAO;
 import com.bloggestter.pojos.UsuarioPojo;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -50,12 +51,17 @@ public class LoginBean implements Serializable {
     public void setImgUsuario(Part imgUsuario) {
         this.imgUsuario = imgUsuario;
     }
+ 
 
     /**
      * Metodo con el cual se crea un usuario
      */
     public void crearUsuario() {
         if (usuario != null) {
+            usuario.setIdtipoUsuario(2);
+            usuario.setIdIdioma(1);
+            usuario.setUsuarioImagen("");
+            usuario.setUsuarioFecha(new Date());
             Map<String, Object> res = usuarioDao.crearUsuario(usuario);
             if (this.validarRespuesta(res)) {
                 FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage("Usuario creado"));

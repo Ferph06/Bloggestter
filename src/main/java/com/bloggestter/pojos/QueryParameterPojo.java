@@ -21,8 +21,13 @@ public class QueryParameterPojo implements Serializable {
     public QueryParameterPojo() {
 
     }
-
-    public QueryParameterPojo(int tipo, Object obj, int posicion) {
+    /**
+     * 
+     * @param posicion
+     * @param obj
+     * @param tipo 
+     */
+    public QueryParameterPojo(int posicion, Object obj, int tipo) {
         this.obj = obj;
         this.tipo = tipo;
         this.posicion = posicion;
@@ -51,19 +56,35 @@ public class QueryParameterPojo implements Serializable {
     public void setObj(Object obj) {
         this.obj = obj;
     }
-
+    /**
+     * 
+     * @param pojo
+     * @return 
+     */
     public static boolean convertirABoolean(QueryParameterPojo pojo) {
         return (boolean) pojo.obj;
     }
-
+    /**
+     * 
+     * @param pojo
+     * @return 
+     */
     public static int convertirAEntero(QueryParameterPojo pojo) {
         return (int) pojo.obj;
     }
-
+    /**
+     * 
+     * @param pojo
+     * @return 
+     */
     public static String convertirATexto(QueryParameterPojo pojo) {
         return (String) pojo.obj;
     }
-
+    /**
+     * 
+     * @param pojo
+     * @return 
+     */
     public static Date convertirAFecha(QueryParameterPojo pojo) {
         return (Date) pojo.obj;
     }

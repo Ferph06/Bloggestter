@@ -30,7 +30,9 @@ public class UsuarioDAO implements Serializable {
     private DAOGenerico dao;
     private Map<String, Object> data;
     private ResultSet rs;
-
+    /**
+     * 
+     */
     public UsuarioDAO() {
         this.parameters = new ArrayList<>();
         this.dao = new DAOGenerico();
@@ -39,7 +41,11 @@ public class UsuarioDAO implements Serializable {
         data.put("tipo", 0);
         rs = null;
     }
-
+    /**
+     * 
+     * @param pojo
+     * @return 
+     */
     public Map<String, Object> crearUsuario(UsuarioPojo pojo) {
         Map<String, Object> respuesta = new HashMap<>();
         respuesta = this.exiteUsuario(pojo);
