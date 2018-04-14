@@ -3,12 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
     <h:head>
         <title>Login</title>
     </h:head>
     <h:body>
-          <ui:composition template="./../template.xhtml">
+        <ui:composition template="./../template.xhtml">
             <ui:define name="content">
                 <div class="container blogcontenedor z-depth-5">
                     <div class="row">
@@ -16,7 +17,7 @@
                             <h:form prependId="false" id="loginForm">
                                 <div class="teal title-form"><h3 class="texto-rot flow-text">Login</h3></div>
                                 <div class="btn-float-send  z-depth-2 ">
-                                    <a class="btn waves-effect waves-light">
+                                    <a class="btn waves-effect waves-light" jsf:actionListener="#{loginBean.loginUsuario()}">
                                         Iniciar
                                         <i class="material-icons right">send</i>
                                     </a>
@@ -28,11 +29,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col s10 m7 offset-s2 offset-m2 input-field">
-                                        <h:inputText id="usuario" class="validate" />
+                                        <h:inputText id="usuario" class="validate" value="#{loginBean.usuario.usuarioCorreo}" required="true" requiredMessage="El correo es necesario" />
                                         <label for="usuario">Correo</label>
                                     </div>
                                     <div class="col s5 m7 offset-s2 offset-m2  input-field">
-                                        <h:inputSecret id="contra"  class="validate">
+                                        <h:inputSecret id="contra"  class="validate" value="#{loginBean.usuario.usuarioClave}" required="true" requiredMessage="La contraseña es necesaria">
                                             <label for="contra">Contraseña</label>
                                         </h:inputSecret>
                                     </div>

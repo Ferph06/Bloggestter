@@ -1,0 +1,18 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.img-perfil{
+    margin-left: 31%;
+    top: 0;
+    margin-top: -8em;
+    width: auto;
+    height: auto    ;
+    position: relative;
+
+}   
+.edit{
+    bottom: 140px !important;
+    right: 10px !important;
+}

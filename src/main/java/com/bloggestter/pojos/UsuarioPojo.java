@@ -30,6 +30,39 @@ public class UsuarioPojo implements Serializable {
     private int idtipoUsuario;
     private int idIdioma;
     
+    public UsuarioPojo() {
+
+    }
+    /**
+     * Metodo constructor para llenar el usuario
+     * @param idUsuario
+     * @param usuarioNombre
+     * @param usuarioApp
+     * @param usuarioApm
+     * @param usuarioCorreo
+     * @param usuarioClave
+     * @param usuarioImagen
+     * @param usuarioFecha
+     * @param usuarioBorrado
+     * @param usuarioUserName
+     * @param idtipoUsuario
+     * @param idIdioma 
+     */
+    public UsuarioPojo(int idUsuario, String usuarioNombre, String usuarioApp, String usuarioApm, String usuarioCorreo, String usuarioClave, String usuarioImagen, Date usuarioFecha, boolean usuarioBorrado, String usuarioUserName, int idtipoUsuario, int idIdioma) {
+        this.idUsuario = idUsuario;
+        this.usuarioNombre = usuarioNombre;
+        this.usuarioApp = usuarioApp;
+        this.usuarioApm = usuarioApm;
+        this.usuarioCorreo = usuarioCorreo;
+        this.usuarioClave = usuarioClave;
+        this.usuarioImagen = usuarioImagen;
+        this.usuarioFecha = usuarioFecha;
+        this.usuarioBorrado = usuarioBorrado;
+        this.usuarioUserName = usuarioUserName;
+        this.idtipoUsuario = idtipoUsuario;
+        this.idIdioma = idIdioma;
+    }
+
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -125,10 +158,11 @@ public class UsuarioPojo implements Serializable {
     public void setIdIdioma(int idIdioma) {
         this.idIdioma = idIdioma;
     }
+
     /**
-     * 
+     *
      * @param u
-     * @return 
+     * @return
      */
     public static List<QueryParameterPojo> parametersCU(UsuarioPojo u) {
         List<QueryParameterPojo> qlist = new ArrayList<>();

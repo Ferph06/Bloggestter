@@ -5,16 +5,17 @@
  */
 package com.bloggestter.control;
 
-import javax.inject.Named;
+import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
 
 /**
  *
  * @author Familia
  */
-@Named(value = "controlBean")
+ @ManagedBean
 @ViewScoped
-public class ControlBean {
+public class ControlBean implements Serializable{
 
     /**
      * Creates a new instance of ControlBean
