@@ -27,8 +27,8 @@ public class UsuarioDAO implements Serializable {
 
     private String query;
     private List<QueryParameterPojo> parameters;
-    private DAOGenerico dao;
-    private Map<String, Object> data;
+    private final DAOGenerico dao;
+    private final Map<String, Object> data;
     private ResultSet rs;
     private static final String TABLE = "bloggestter.Usuarios";
 
@@ -42,6 +42,27 @@ public class UsuarioDAO implements Serializable {
         data.put("query", "");
         data.put("tipo", 0);
         rs = null;
+    }
+
+    public boolean editarUsuario(UsuarioPojo p) {
+        boolean exito = false;
+        try {
+            parameters = UsuarioPojo.parameterEU(p);
+            query = "UPDATE " + TABLE + " SET\n"
+                    + "	UsuarioNombre =?,\n"
+                    + "	UsuarioApp = ?,\n"
+                    + "	UsuarioApm =?,\n"
+                    + "	UsuarioUserName = ?\n"
+                    + "WHERE IdUsuarios = ?";
+            exito = dao.CUD(query, parameters);
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, "Error en crear usuario", ex);
+        } finally {
+            dao.limpiarPool();
+            this.cerrarResultado();
+        }
+
+        return exito;
     }
 
     /**
@@ -100,7 +121,7 @@ public class UsuarioDAO implements Serializable {
                 resultado.put("a", "l");
                 resultado.put("e", "Bienvenido " + rs.getNString("UsuarioNombre"));
                 resultado.put("u", new UsuarioPojo(rs.getInt("IdUsuarios"), rs.getNString("UsuarioNombre"), rs.getNString("UsuarioApp"), rs.getNString("UsuarioApm"),
-                        rs.getNString("UsuarioCorreo"), rs.getNString("UsuarioClave"), rs.getNString("UsuarioImagen"), rs.getDate("UsuarioFecha"), rs.getBoolean("UsuarioBorrdado"),
+                        rs.getNString("UsuarioCorreo"), rs.getNString("UsuarioClave"), rs.getString("UsuarioImagen"), rs.getDate("UsuarioFecha"), rs.getBoolean("UsuarioBorrdado"),
                         rs.getNString("UsuarioUserName"), rs.getInt("TipoUsuarios_IdTipoUsuario"), rs.getInt("Idiomas_IdIdioma")));
             }
         } catch (SQLException ex) {

@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -24,13 +25,23 @@
                 <a href="#!" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><p:link outcome="/public/blogs.bloggestter" >Blogs</p:link></li>
-                    <li><p:link outcome="/public/login.bloggestter" ><i class="material-icons left">assignment_ind</i>Iniciar Sesion</p:link></li>
+                    <li jsf:rendered="#{controlBean.obtenerUsuario()==null}"><p:link outcome="/public/login.bloggestter" ><i class="material-icons left">assignment_ind</i>Iniciar Sesion</p:link></li>
+                    <li jsf:rendered="#{controlBean.obtenerUsuario()!=null}"><p:link outcome="/comun/perfilUsuario.bloggestter" ><i class="material-icons left">assignment_ind</i>Perfil</p:link></li>
+                    <li jsf:rendered="#{controlBean.obtenerUsuario()!=null}"><p:link outcome="/comun/perfilUsuario.bloggestter" ><i class="material-icons left">font_download</i>Mi blog</p:link></li>
+                    <li jsf:rendered="#{controlBean.obtenerUsuario()!=null}"><a href="#!"  class="dropdown-trigger"  data-target="blogsDrop"><i class="material-icons left">arrow_drop_down</i></a></li>
                 </ul>
             </div>
         </nav>
+        <ul id="blogsDrop" class="dropdown-content" style="width: 80px important;">
+            <li><a href="#!">Configuracion general</a></li>
+            <li><a href="#!">Cambiar Idioma <i class="material-icons left">g_translate</i></a></li>
+            <li class="divider"></li>
+            <li><a href="#!">Cerrar sesion</a></li>
+        </ul>
         <ul class="sidenav" id="mobile-demo">
             <li><p:link outcome="/public/blogs.bloggestter" >Blogs</p:link></li>
-            <li><p:link outcome="/public/login.bloggestter" ><i class="material-icons left">assignment_ind</i>Iniciar Sesion</p:link></li>
+            <li jsf:rendered="#{controlBean.obtenerUsuario()==null}"><p:link outcome="/public/login.bloggestter" ><i class="material-icons left">assignment_ind</i>Iniciar Sesion</p:link></li>
+            <li jsf:rendered="#{controlBean.obtenerUsuario()!=null}"><p:link outcome="/comun/perfilUsuario.bloggestter" ><i class="material-icons left">assignment_ind</i>Perfil</p:link></li>
         </ul>
         <p:growl autoUpdate="true"  id="msg" />
         <div id="content" class="center_content">

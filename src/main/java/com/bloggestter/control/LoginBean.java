@@ -102,6 +102,7 @@ public class LoginBean implements Serializable {
             if (((String) res.get("a")).equals("l")) {
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", (UsuarioPojo) res.get("u"));
                 try {
+                   
                     FacesContext.getCurrentInstance().getExternalContext().redirect("./../comun/perfilUsuario.bloggestter?faces-redirect=true");
                 } catch (IOException ex) {
                     Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,5 +112,7 @@ public class LoginBean implements Serializable {
             }
         }
     }
+    
+ 
 
 }

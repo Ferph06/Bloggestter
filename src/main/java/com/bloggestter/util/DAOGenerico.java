@@ -30,7 +30,6 @@ public class DAOGenerico implements Serializable {
 
     private DataSource datasource;
     private final String pool = "jdbc/Bloggestter";
-    private Connection connection;
     private ResultSet result;
     private PreparedStatement prepared;
     private Statement statemt;
@@ -53,7 +52,6 @@ public class DAOGenerico implements Serializable {
      */
     public DAOGenerico() {
         init();
-        connection = this.crearConexion();
     }
 
     /**
@@ -71,18 +69,7 @@ public class DAOGenerico implements Serializable {
         return connectionreturn;
     }
 
-    /**
-     * Metodo con el cual se cierra la conexion
-     */
-    private void quitarConexion() {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DAOGenerico.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
+
 
     /**
      * Metodo para cerrar las variable de dml
@@ -116,7 +103,6 @@ public class DAOGenerico implements Serializable {
      */
     public void limpiarPool() {
         this.cerrarAuxiliares();
-        this.quitarConexion();
     }
 
     /**
@@ -128,38 +114,42 @@ public class DAOGenerico implements Serializable {
      * @return el resultado de la consulta ResultSet
      */
     public ResultSet sqlAction(Map<String, Object> consulta, List<QueryParameterPojo> parametros) {
-        connection = this.crearConexion();
-        query = (String) consulta.get("query");
-        int tipo = (int) consulta.get("tipo");
-        if (tipo == 0) {
-            try {
-                statemt = connection.createStatement();
-                result = statemt.executeQuery(query);
-            } catch (SQLException ex) {
-                Logger.getLogger(DAOGenerico.class.getName()).log(Level.SEVERE, null, ex);
+        try (Connection con = this.crearConexion()) {
+            query = (String) consulta.get("query");
+            int tipo = (int) consulta.get("tipo");
+            if (tipo == 0) {
+                try {
+                    statemt = con.createStatement();
+                    result = statemt.executeQuery(query);
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOGenerico.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (tipo == 1) {
+                try {
+                    prepared = con.prepareStatement(query);
+                    this.agregarCampos(parametros);
+                    result = prepared.executeQuery();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOGenerico.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        } else if (tipo == 1) {
-            try {
-                prepared = connection.prepareStatement(query);
-                this.agregarCampos(parametros);
-                result = prepared.executeQuery();
-            } catch (SQLException ex) {
-                Logger.getLogger(DAOGenerico.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (Exception ex) {
+            Logger.getLogger(DAOGenerico.class.getName()).log(Level.SEVERE, "Error en sqlAction", ex);
         }
         return result;
     }
+
     /**
      * Metodo con el cual se agrega la consulta para un create,update o delete
+     *
      * @param consulta
      * @param parametros
-     * @return 
+     * @return
      */
     public boolean CUD(String consulta, List<QueryParameterPojo> parametros) {
         boolean exito = false;
-        try {
-            connection = this.crearConexion();
-            prepared = connection.prepareStatement(consulta);
+        try (Connection con = this.crearConexion()) {
+            prepared = con.prepareStatement(consulta);
             this.agregarCampos(parametros);
             exito = prepared.executeUpdate() == 1;
         } catch (SQLException ex) {

@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
     <h:head>
         <title>PerfilUsuario</title>
         <h:outputStylesheet library="css"  name="general/perfil.css"/>
@@ -10,40 +12,39 @@
     <h:body>
         <ui:composition template="./../template.xhtml">
             <ui:define name="content">
-                  <h:outputStylesheet library="css"  name="general/perfil.css"/>
+                <h:outputStylesheet library="css"  name="general/perfil.css"/>
                 <div class="row">
                     <div class="col s2 m2 l2"></div>
                     <div class="col m3 s3 l3 offset-m2 offset-s2 offset-l2">
                         <div class="card z-depth-3">
                             <div class="card-image">
                                 <h:graphicImage  class=" z-depth-2" library="img" name="general/material.png" />
-                                <!--img src="./../../resources/img/material.png " class=" z-depth-2" /-->
                                 <a data-target="editarUsuario" class="hoverable modal-trigger btn-floating halfway-fab waves-effect waves-light blue edit z-depth-2"><i class="material-icons">edit</i></a>
                             </div>
                             <div class="row">
-                                <div class="col s10 m8 l10 ">
+                                <div class="col s8 m8 l10 ">
                                     <div class="img-perfil">
-                                        <h:graphicImage  class="circle responsive-img" library="img" name="general/user_reg.png" />
+                                        <p:graphicImage stream="false"  class="circle responsive-img" value="#{usuarioBean.imgU!=null?usuarioBean.imgU : ''}" />
                                     </div>
                                 </div>
                                 <div class="col s5 m5 l5 offset-s1 offset-m1 offset-l1">
                                     <div class="collection">
-                                        <a class="collection-item active">Nombre</a>
+                                        <a class="collection-item active">#{usuarioBean.usuario.usuarioNombre} </a>
                                     </div>
                                 </div>
                                 <div class="col s5 m5 l5">
                                     <div class="collection">
-                                        <a class="collection-item active">Apellido Paterno</a>
+                                        <a class="collection-item active">#{usuarioBean.usuario.usuarioApp} #{usuarioBean.usuario.usuarioApm}</a>
                                     </div>
                                 </div>
-                                <div class="col s5 m5 l5 offset-s1 offset-m1 offset-l1">
+                                <div class="col s5 m5 l5 offset-s1 offset-l1 offset-m1 ">
                                     <div class="collection">
-                                        <a class="collection-item active">Apellido materno</a>
+                                        <a class="collection-item active">#{usuarioBean.usuario.usuarioFecha}</a>
                                     </div>
                                 </div>
-                                <div class="col s5 m5 l5 offset-s1 ">
+                                <div class="col s5 m5 l5">
                                     <div class="collection">
-                                        <a class="collection-item active">Fecha nacimiento</a>
+                                        <a class="collection-item active">#{usuarioBean.usuario.usuarioUserName}</a>
                                     </div>
                                 </div>
                                 <div class="col s12 m12 l12">
@@ -56,36 +57,34 @@
                     </div>
                 </div>
                 <div id="editarUsuario" class="modal " >
-                    <!--div class="modal-content" >
-                        <div class="row">
-                            <form id="formEditar">
-                                <div class="input-field col s6">
-                                    <input id="nombre" type="text" class="validate">
-                                        <label for="nombre">Nombre</label>
+                    <h:form prependId="false" id="formularioEditar" >
+                        <div class="modal-content">
+                            <div class="row">
+
+                                <div class="input-field col s6 m4 l4">
+                                    <h:inputText class="validate" id="nombre" value="#{usuarioBean.usuario.usuarioNombre}"/>
+                                    <label for="nombre">Nombre</label>
                                 </div>
-                                <div class="input-field col s6">
-                                    <input id="APP" type="text" class="validate">
-                                        <label for="APP">Apellido Paterno</label>
+                                <div class="input-field col s6 m4 l4">
+                                    <h:inputText  id="APP" class="validate"   value="#{usuarioBean.usuario.usuarioApp}"/>
+                                    <label for="APP">Apellido Paterno</label>
                                 </div>
-                                <div class="input-field col s6">
-                                    <input id="APM" type="text" class="validate">
-                                        <label for="APM">Apellido Materno</label>
+                                <div class="input-field col s6 m4 l4">
+                                    <h:inputText  id="APM"  class="validate"  value="#{usuarioBean.usuario.usuarioApm}" />
+                                    <label for="APM">Apellido Materno</label>
                                 </div>
-                                <div class="input-field col s6">
-                                    <input id="username" type="text" class="validate">
-                                        <label for="username">Username</label>
+                                <div class="input-field col s6 m4 l4">
+                                    <h:inputText  id="username"  class="validate"  value="#{usuarioBean.usuario.usuarioUserName}" />
+                                    <label for="username">Username</label>
                                 </div>
-                                <div class="input-field col s6 offset-s3" >
-                                    <input type="text" id="nacimiento" class="datepicker">
-                                        <label for="nacimiento">Fecha de nacimiento</label>
-                                </div>
-                            </form>
+
+                            </div>
                         </div>
-                    </div-->
-                    <div class="modal-footer  blue-grey darken-4">
-                        <a href="#!" class=" waves-effect waves-light teal btn btn-small">Aceptar</a>
-                        <a href="#!" class="modal-action modal-close waves-effect waves-light btn btn-small red">Cancelar</a>
-                    </div>
+                        <div class="modal-footer  blue-grey darken-4">
+                            <a href="#!" class=" waves-effect waves-light teal btn btn-small" jsf:actionListener="#{usuarioBean.actualizarUsuario()}" >Aceptar</a>
+                            <a href="#!" class="modal-action modal-close waves-effect waves-light btn btn-small red">Cancelar</a>
+                        </div>
+                    </h:form>
                 </div>
 
 
