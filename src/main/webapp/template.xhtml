@@ -27,16 +27,17 @@
                     <li><p:link outcome="/public/blogs.bloggestter" >Blogs</p:link></li>
                     <li jsf:rendered="#{controlBean.obtenerUsuario()==null}"><p:link outcome="/public/login.bloggestter" ><i class="material-icons left">assignment_ind</i>Iniciar Sesion</p:link></li>
                     <li jsf:rendered="#{controlBean.obtenerUsuario()!=null}"><p:link outcome="/comun/perfilUsuario.bloggestter" ><i class="material-icons left">assignment_ind</i>Perfil</p:link></li>
-                    <li jsf:rendered="#{controlBean.obtenerUsuario()!=null}"><p:link outcome="/comun/perfilUsuario.bloggestter" ><i class="material-icons left">font_download</i>Mi blog</p:link></li>
+                    <li jsf:rendered="#{controlBean.obtenerUsuario()!=null}"><p:link outcome="/comun/nuevoBlog.bloggestter" ><i class="material-icons left">font_download</i>Mi blog</p:link></li>
                     <li jsf:rendered="#{controlBean.obtenerUsuario()!=null}"><a href="#!"  class="dropdown-trigger"  data-target="blogsDrop"><i class="material-icons left">arrow_drop_down</i></a></li>
                 </ul>
             </div>
         </nav>
-        <ul id="blogsDrop" class="dropdown-content" style="width: 80px important;">
-            <li><a href="#!">Configuracion general</a></li>
-            <li><a href="#!">Cambiar Idioma <i class="material-icons left">g_translate</i></a></li>
-            <li class="divider"></li>
-            <li><a href="#!">Cerrar sesion</a></li>
+        <ul id="blogsDrop" class="dropdown-content" style="width: 80px !important;padding-right: 2em !important;">
+            <h:form>
+                <li><a jsf:actionListener="#{controlBean.cambiarIdioma()}">Cambiar Idioma <i class="material-icons left">g_translate</i></a></li>
+                <li class="divider"></li>
+                <li><a jsf:actionListener="#{controlBean.cerrarSesion()}">Cerrar sesion</a></li>
+            </h:form>
         </ul>
         <ul class="sidenav" id="mobile-demo">
             <li><p:link outcome="/public/blogs.bloggestter" >Blogs</p:link></li>

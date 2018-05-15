@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,7 +31,7 @@ public class UsuarioDAO implements Serializable {
     private final DAOGenerico dao;
     private final Map<String, Object> data;
     private ResultSet rs;
-    private static final String TABLE = "bloggestter.Usuarios";
+    private static final String TABLE = "blog.Usuarios";
 
     /**
      * Metodo constructor con los parametros necesario
@@ -49,11 +50,11 @@ public class UsuarioDAO implements Serializable {
         try {
             parameters = UsuarioPojo.parameterEU(p);
             query = "UPDATE " + TABLE + " SET\n"
-                    + "	UsuarioNombre =?,\n"
-                    + "	UsuarioApp = ?,\n"
-                    + "	UsuarioApm =?,\n"
-                    + "	UsuarioUserName = ?\n"
-                    + "WHERE IdUsuarios = ?";
+                    + "	nombreUsuarios =?,\n"
+                    + "	appUsuarios = ?,\n"
+                    + "	apmUsuarios =?,\n"
+                    + "	username = ?\n"
+                    + "WHERE idUsuarios = ?";
             exito = dao.CUD(query, parameters);
         } catch (Exception ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, "Error en crear usuario", ex);
@@ -76,13 +77,21 @@ public class UsuarioDAO implements Serializable {
         if (respuesta.get("e").equals("")) {
             try {
                 parameters = UsuarioPojo.parametersCU(pojo);
-                query = "INSERT INTO bloggestter.Usuarios\n"
-                        + "(UsuarioNombre,UsuarioApp,UsuarioApm,UsuarioClave,\n"
-                        + "UsuarioCorreo,UsuarioUserName,UsuarioBorrdado,\n"
-                        + "TipoUsuarios_IdTipoUsuario,Idiomas_IdIdioma,\n"
-                        + "UsuarioImagen,UsuarioFecha)\n"
+                query = "INSERT INTO blog.usuarios\n"
+                        + "(\n"
+                        + "nombreUsuarios,\n"
+                        + "appUsuarios,\n"
+                        + "apmUsuarios,\n"
+                        + "email,\n"
+                        + "username,\n"
+                        + "borrado,\n"
+                        + "activo,\n"
+                        + "Idiomas_idIdiomas,\n"
+                        + "Roles_idRoles,\n"
+                        + "ImagenUsuario,\n"
+                        + "clave)\n"
                         + "VALUES\n"
-                        + "(?,?,?,?,?,?,?,?,?,?,?);";
+                        + "(?,?,?,?,?,?,?,?,?,?,?);\n";
                 boolean exito = dao.CUD(query, parameters);
                 if (exito) {
                     respuesta.put("a", "c");
@@ -109,7 +118,7 @@ public class UsuarioDAO implements Serializable {
         resultado.put("e", "Correo o contraseña invalidos ,favor de intentar de nuevo");
         resultado.put("u", null);
         query = "SELECT * FROM " + TABLE + " "
-                + "WHERE  UsuarioBorrdado=0 and UsuarioClave=? and UsuarioCorreo=?";
+                + "WHERE  borrado=0 and clave=? and email=?";
         parameters.add(new QueryParameterPojo(1, logininfo.getUsuarioClave(), 2));
         parameters.add(new QueryParameterPojo(2, logininfo.getUsuarioCorreo(), 2));
         data.put("query", query);
@@ -119,10 +128,10 @@ public class UsuarioDAO implements Serializable {
             if (rs.next()) {
                 System.out.println("ENTRO");
                 resultado.put("a", "l");
-                resultado.put("e", "Bienvenido " + rs.getNString("UsuarioNombre"));
-                resultado.put("u", new UsuarioPojo(rs.getInt("IdUsuarios"), rs.getNString("UsuarioNombre"), rs.getNString("UsuarioApp"), rs.getNString("UsuarioApm"),
-                        rs.getNString("UsuarioCorreo"), rs.getNString("UsuarioClave"), rs.getString("UsuarioImagen"), rs.getDate("UsuarioFecha"), rs.getBoolean("UsuarioBorrdado"),
-                        rs.getNString("UsuarioUserName"), rs.getInt("TipoUsuarios_IdTipoUsuario"), rs.getInt("Idiomas_IdIdioma")));
+                resultado.put("e", "Bienvenido " + rs.getNString("nombreUsuarios"));
+                resultado.put("u", new UsuarioPojo(rs.getInt("idUsuarios"), rs.getNString("nombreUsuarios"), rs.getNString("appUsuarios"), rs.getNString("apmUsuarios"),
+                        rs.getNString("email"), rs.getNString("clave"), rs.getString("ImagenUsuario"),new Date(), rs.getBoolean("borrado"),
+                        rs.getNString("username"), rs.getInt("Roles_idRoles"), rs.getInt("Idiomas_IdIdiomas")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, "Error en existe usuario", ex);
@@ -144,7 +153,7 @@ public class UsuarioDAO implements Serializable {
         Map<String, Object> existe = new HashMap<>();
         existe.put("a", "nc");
         existe.put("e", "");
-        query = "SELECT UsuarioUserName FROM " + TABLE + " where UsuarioUserName=?";
+        query = "SELECT username FROM " + TABLE + " where username=?";
         QueryParameterPojo qpp = new QueryParameterPojo();
         qpp.setPosicion(1);
         qpp.setTipo(2);
@@ -158,7 +167,7 @@ public class UsuarioDAO implements Serializable {
                 existe.put("e", "El nombre de usuario ya existe por favor escoga otro.");
             }
             if (existe.get("e").equals("")) {
-                query = "SELECT UsuarioCorreo FROM " + TABLE + " where UsuarioCorreo=?";
+                query = "SELECT email FROM " + TABLE + " where email=?";
                 qpp.setPosicion(1);
                 qpp.setTipo(2);
                 qpp.setObj(pojo.getUsuarioCorreo());

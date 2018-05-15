@@ -23,9 +23,6 @@ import javax.faces.view.ViewScoped;
 @ViewScoped
 public class ControlBean implements Serializable {
 
-    public ControlBean() {
-
-    }
 
     /**
      * Metodo con el que se verifica la sesion del usuario
@@ -34,12 +31,16 @@ public class ControlBean implements Serializable {
      */
     public UsuarioPojo obtenerUsuario() {
         UsuarioPojo u = null;
-            Map<String, Object> map = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
-            if (map.get("usuario") != null) {
-                u = (UsuarioPojo) map.get("usuario");
+        Map<String, Object> map = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+        if (map.get("usuario") != null) {
+            u = (UsuarioPojo) map.get("usuario");
         }
 
         return u;
+    }
+
+    public void cambiarIdioma() {
+        
     }
 
     /**
@@ -49,7 +50,7 @@ public class ControlBean implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuario");
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("./index.bloggester");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../");
         } catch (IOException ex) {
             Logger.getLogger(ControlBean.class.getName()).log(Level.SEVERE, null, ex);
         }

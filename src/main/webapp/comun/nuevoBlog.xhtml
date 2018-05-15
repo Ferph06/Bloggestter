@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Nuevo Blog</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../template.xhtml">
+            <ui:define name="content">
+                <div class="row">
+                    <!--div class="col s3 m3 l3  "> 
+                        <div class="card-panel blue-grey lighten-2 z-depth-1">
+                            <h3><span class="card-title">Presentacion</span></h3>
+                            <div class="card-content ">
+                                <ul class="collapsible white">
+                                    <li>
+                                        <div class="collapsible-header">
+                                            <i class="material-icons">filter_drama</i>
+                                            Agregar Categorias
+                                        </div>
+                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header">
+                                            <i class="material-icons">place</i>
+                                            Agregar subcategoria
+                                        </div>
+                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header">
+                                            <i class="material-icons">filter_drama</i>
+                                            Imagen fondo
+                                        </div>
+                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div-->
+                    <!--div class="col s3 m3 l3 offset-l6 offset-m6 offset-s6  ">
+                        <div class="card-panel blue-grey lighten-2 z-depth-1">
+                            <h3><span class="card-title">Herramientas</span></h3>
+                            <div class="card-content ">
+                                <ul class="collapsible white">
+                                    <li>
+                                        <div class="collapsible-header">
+                                            <i class="material-icons">filter_drama</i>
+                                            Titulos
+                                        </div>
+                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header">
+                                            <i class="material-icons">place</i>
+                                            Subtitulos
+                                        </div>
+                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header">
+                                            <i class="material-icons">filter_drama</i>
+                                            Tipo Letra
+                                        </div>
+                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header">
+                                            <i class="material-icons">place</i>
+                                            Tamaño letra
+                                        </div>
+                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header">
+                                            <i class="material-icons">filter_drama</i>
+                                            Imagen
+                                        </div>
+                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div-->
+                </div>
+                <div class="container blogcontenedor-editor z-depth-5">
+                    <h:form>    
+                        <p:textEditor widgetVar="editor1"  height="300" style="margin-bottom:10px"/>
+
+
+                        <div class="btn-float-send  z-depth-2 ">
+                            <a class="btn waves-effect waves-light" >
+                                Postear
+                                <i class="material-icons right">send</i>
+                            </a>
+                        </div>
+
+
+
+
+                        <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade">
+                            <p:outputPanel id="display">
+                                <h3 style="margin-top:0">Basic</h3>
+                                <h:outputText  escape="false" />
+
+                                <h3>Custom</h3>
+                                <h:outputText escape="false" />
+                            </p:outputPanel>
+                        </p:dialog>     
+                    </h:form>
+
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

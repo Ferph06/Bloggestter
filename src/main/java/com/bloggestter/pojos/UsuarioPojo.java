@@ -29,6 +29,7 @@ public class UsuarioPojo implements Serializable {
     private String usuarioUserName;
     private int idtipoUsuario;
     private int idIdioma;
+    private boolean usuarioActivo;
 
     public UsuarioPojo() {
 
@@ -63,6 +64,14 @@ public class UsuarioPojo implements Serializable {
         this.usuarioUserName = usuarioUserName;
         this.idtipoUsuario = idtipoUsuario;
         this.idIdioma = idIdioma;
+    }
+
+    public boolean isUsuarioActivo() {
+        return usuarioActivo;
+    }
+
+    public void setUsuarioActivo(boolean usuarioActivo) {
+        this.usuarioActivo = usuarioActivo;
     }
 
     public int getIdUsuario() {
@@ -171,17 +180,21 @@ public class UsuarioPojo implements Serializable {
         qlist.add(new QueryParameterPojo(1, u.getUsuarioNombre(), 2));
         qlist.add(new QueryParameterPojo(2, u.getUsuarioApp(), 2));
         qlist.add(new QueryParameterPojo(3, u.getUsuarioApm(), 2));
-        qlist.add(new QueryParameterPojo(4, u.getUsuarioClave(), 2));
-        qlist.add(new QueryParameterPojo(5, u.getUsuarioCorreo(), 2));
-        qlist.add(new QueryParameterPojo(6, u.getUsuarioUserName(), 2));
-        qlist.add(new QueryParameterPojo(7, u.isUsuarioBorrado(), 4));
-        qlist.add(new QueryParameterPojo(8, u.getIdtipoUsuario(), 1));
-        qlist.add(new QueryParameterPojo(9, u.getIdIdioma(), 1));
+        qlist.add(new QueryParameterPojo(4, u.getUsuarioCorreo(), 2));
+        qlist.add(new QueryParameterPojo(5, u.getUsuarioUserName(), 2));
+        qlist.add(new QueryParameterPojo(6, u.isUsuarioBorrado(), 4));
+        qlist.add(new QueryParameterPojo(7, u.isUsuarioActivo(), 4));
+        qlist.add(new QueryParameterPojo(8, u.getIdIdioma(), 1));
+        qlist.add(new QueryParameterPojo(9, u.getIdtipoUsuario(), 1));
+        qlist.add(new QueryParameterPojo(11, u.getUsuarioClave(), 2));
         qlist.add(new QueryParameterPojo(10, u.getUsuarioImagen(), 2));
-        qlist.add(new QueryParameterPojo(11, u.getUsuarioFecha(), 3));
         return qlist;
     }
-
+    /**
+     * 
+     * @param u
+     * @return 
+     */
     public static List<QueryParameterPojo> parameterEU(UsuarioPojo u) {
         List<QueryParameterPojo> qlist = new ArrayList<>();
         qlist.add(new QueryParameterPojo(1, u.getUsuarioNombre(), 2));
@@ -189,6 +202,7 @@ public class UsuarioPojo implements Serializable {
         qlist.add(new QueryParameterPojo(3, u.getUsuarioApm(), 2));
         qlist.add(new QueryParameterPojo(4, u.getUsuarioUserName(), 2));
         qlist.add(new QueryParameterPojo(5, u.getIdUsuario(), 1));
+
         return qlist;
     }
 

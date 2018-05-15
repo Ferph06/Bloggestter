@@ -46,4 +46,8 @@ public class BlogBean implements Serializable {
         }
     }
 
+    public void crearBlog() {
+        
+    }
+
 }
