@@ -5,6 +5,7 @@
  */
 package com.bloggestter.dao;
 
+import com.bloggestter.pojos.BlogPojo;
 import com.bloggestter.pojos.QueryParameterPojo;
 import com.bloggestter.util.DAOGenerico;
 import java.io.Serializable;
@@ -36,4 +37,30 @@ public class BlogDAO implements Serializable {
         rs = null;
     }
 
+    public boolean agregarBlog(BlogPojo pojo) {
+        boolean exito = false;
+
+        return exito;
+    }
+
+    public boolean agregarFavorito(BlogPojo p) {
+        boolean exito = false;
+
+        return exito;
+    }
+
+    public List<BlogPojo> obtenerTodos() {
+        List<BlogPojo> ls = new ArrayList<>();
+
+        return ls;
+    }
+
+    public List<BlogPojo> obtenerFavoritos(int idu) {
+        List<BlogPojo> ls = new ArrayList<>();
+
+        return ls;
+    }
+    
+    
+    
 }

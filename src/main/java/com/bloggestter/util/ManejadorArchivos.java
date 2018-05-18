@@ -32,6 +32,7 @@ public class ManejadorArchivos implements Serializable {
     public static final String IMG_BLOGFONDO = "blog/fondo/";
     public static final String IMG_MULTIMEDIA = "blog/multimedia/";
     private final String CONTENTIMG = "image/jpg";
+    public static final String HTML = "blog/blogs/";
     private String rutaimg;
 
     /**
@@ -40,6 +41,9 @@ public class ManejadorArchivos implements Serializable {
      */
     public ManejadorArchivos() {
         rutaimg = "";
+        if (!Paths.get(RUTA_BASE + HTML).toFile().exists()) {
+            Paths.get(RUTA_BASE + HTML).toFile().mkdir();
+        }
         this.crearCarpetas();
         this.crearCarpetasHijas();
     }

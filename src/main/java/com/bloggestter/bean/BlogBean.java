@@ -42,11 +42,15 @@ public class BlogBean implements Serializable {
         if (map.get("usuario") != null) {
 
         } else {
-
+            
         }
     }
 
     public void crearBlog() {
+
+    }
+
+    public void agregarFavorito() {
         
     }
 
