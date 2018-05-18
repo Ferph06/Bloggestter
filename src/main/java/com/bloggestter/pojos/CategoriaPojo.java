@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class CategoriaPojo implements Serializable {
 
     private int idCategoria;
-    private int categoria;
+    private String categoria;
     private boolean borrado;
 
     public int getIdCategoria() {
@@ -25,11 +25,11 @@ public class CategoriaPojo implements Serializable {
         this.idCategoria = idCategoria;
     }
 
-    public int getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(int categoria) {
+    public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
 

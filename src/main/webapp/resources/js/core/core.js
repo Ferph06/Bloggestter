@@ -8,7 +8,7 @@ if (document.querySelector('.fixed-action-btn') !== undefined && document.queryS
         toolbarEnabled: true
     });
 }
-document.querySelector(".dropdown-trigger").dropdown();
+//document.querySelector(".dropdown-trigger").dropdown();
 
 
 

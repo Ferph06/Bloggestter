@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class SubCategoriaPojo implements Serializable {
 
     private int idsubcategoria;
-    private int subcategoria;
+    private String subcategoria;
     private boolean favorita;
 
     public int getIdsubcategoria() {
@@ -25,11 +25,11 @@ public class SubCategoriaPojo implements Serializable {
         this.idsubcategoria = idsubcategoria;
     }
 
-    public int getSubcategoria() {
+    public String getSubcategoria() {
         return subcategoria;
     }
 
-    public void setSubcategoria(int subcategoria) {
+    public void setSubcategoria(String subcategoria) {
         this.subcategoria = subcategoria;
     }
 

@@ -6,6 +6,7 @@
 package com.bloggestter.pojos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,22 @@ public class BlogPojo implements Serializable {
     private Date fecha;
     private String by;
     private String contenido;
+    private int usuario;
+
+    public BlogPojo(String titulo, boolean borrado, String contenido, int idusuario) {
+        this.titulo = titulo;
+        this.borrado = borrado;
+        this.contenido = contenido;
+        this.usuario = idusuario;
+    }
+
+    public int getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(int usuario) {
+        this.usuario = usuario;
+    }
 
     public String getContenido() {
         return contenido;
@@ -78,6 +95,16 @@ public class BlogPojo implements Serializable {
 
     public void setBorrado(boolean borrado) {
         this.borrado = borrado;
+    }
+
+    public static List<QueryParameterPojo> INSERU(BlogPojo p) {
+        List<QueryParameterPojo> parametes = new ArrayList<>();
+        qlist.add(new QueryParameterPojo(1, u.getUsuarioNombre(), 2));
+        qlist.add(new QueryParameterPojo(2, u.getUsuarioApp(), 2));
+        qlist.add(new QueryParameterPojo(3, u.getUsuarioApm(), 2));
+        qlist.add(new QueryParameterPojo(4, u.getUsuarioUserName(), 2));
+        qlist.add(new QueryParameterPojo(5, u.getIdUsuario(), 1));
+        return parametes;
     }
 
 }

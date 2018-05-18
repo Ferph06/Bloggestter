@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
     <h:head>
         <title>Blogs</title>
     </h:head>
@@ -20,23 +21,27 @@
                                             <i class="material-icons">filter_drama</i>
                                             Todas las categorias
                                         </div>
-                                        <div class="collapsible-body"><p></p></div>
+                                        <div class="collapsible-body">
+                                                <h:form prependId="false" id="irCategorias">
+                                                    <h:commandLink class="btn waves-effect  z-depth-3"  value="Ir" actionListener="#{blogBean.verCategorias()}"/>
+                                                </h:form>
+                                        </div>
                                     </li>
-                                    <li>
+                                    <!--li>
                                         <div class="collapsible-header">
                                             <i class="material-icons">place</i>
                                             Top 10
                                         </div>
                                         <div class="collapsible-body"><p></p></div>
-                                    </li>
-                                    <li>
+                                    </li-->
+                                    <!--li>
                                         <div class="collapsible-header">
                                             <i class="material-icons">filter_drama</i>
                                             Comunidades
                                         </div>
                                         <div class="collapsible-body"><p></p></div>
-                                    </li>
-                                    <li>
+                                    </li-->
+                                    <!--li>
                                         <div class="collapsible-header">
                                             <i class="material-icons">place</i>
                                             Eventos
@@ -49,7 +54,7 @@
                                             Personas
                                         </div>
                                         <div class="collapsible-body"><p></p></div>
-                                    </li>
+                                    </li-->
                                     <li>
                                         <div class="collapsible-header">
                                             <i class="material-icons">filter_drama</i>
@@ -61,6 +66,40 @@
                             </div>
                         </div>
                     </div>
+                      <div class="col s10 m10 l10" id="blog-content">
+                        <div class="row">
+                            <h:form>
+                            <ui:repeat var="blog" value="#{blogBean.lsBlog}">
+                                <div class="col s4 m4 l4">
+                                <div class="card horizontal blue-grey">
+                                    <div class="card-image wrapper-img-h">
+                                       <h:graphicImage library="img" name="general/material.png" class="activator" />
+                                       <span class="card-title">#{blog.titulo}</span>
+                                        <a class="btn-floating btn-small halfway-fab waves-effect waves-light wrapper-btn-love-h"><i class="material-icons">favorite_border</i></a>
+                                    </div>
+                                    <div class="card-reveal">
+                                        <span class="card-title grey-text text-darken-4">
+                                             #{blog.contenido}
+                                            <i class="material-icons right">close</i>
+                                        </span>
+                                    </div>
+                                    <div class="card-stacked">
+                                        <div class="card-content">
+                                            <div class="row">
+                                                <a jsf:actionListener="#{blogBean.verBlog(blog)}" class="col s12 m12 l12 ">Leer</a>
+                                                <div class="chip chip-wrapper btn btn-flat btn-small 
+                                                     col s12 m12 l12 ">
+                                                    Categoria
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </ui:repeat>
+                            </h:form>
+                        </div>
+                      </div>
                     <!--Cada card contiene los post de los usuarios-->
                     <!--div class="col s10 m10 l10" id="blog-content">
                         <div class="row">

@@ -11,98 +11,59 @@
     <h:body>
         <ui:composition template="./../template.xhtml">
             <ui:define name="content">
-                <div class="row">
-                    <!--div class="col s3 m3 l3  "> 
-                        <div class="card-panel blue-grey lighten-2 z-depth-1">
-                            <h3><span class="card-title">Presentacion</span></h3>
-                            <div class="card-content ">
-                                <ul class="collapsible white">
-                                    <li>
-                                        <div class="collapsible-header">
-                                            <i class="material-icons">filter_drama</i>
-                                            Agregar Categorias
-                                        </div>
-                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header">
-                                            <i class="material-icons">place</i>
-                                            Agregar subcategoria
-                                        </div>
-                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header">
-                                            <i class="material-icons">filter_drama</i>
-                                            Imagen fondo
-                                        </div>
-                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                                    </li>
-                                </ul>
+                <h:form prependId="false" id="BlogPost">
+
+                    <div class="row">
+                        <div class="col s3 m3 l3  "> 
+                            <div class="card-panel blue-grey lighten-2 z-depth-1">
+                                <h3><span class="card-title">Presentacion</span></h3>
+                                <div class="card-content ">
+                                    <ul class="collapsible white">
+                                        <li>
+                                            <div class="collapsible-header">
+                                                <i class="material-icons">filter_drama</i>
+                                                Agregar Categorias
+                                            </div>
+                                            <div class="collapsible-body"></div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header">
+                                                <i class="material-icons">place</i>
+                                                Agregar subcategoria
+                                            </div>
+                                            <div class="collapsible-body"></div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div-->
-                    <!--div class="col s3 m3 l3 offset-l6 offset-m6 offset-s6  ">
-                        <div class="card-panel blue-grey lighten-2 z-depth-1">
-                            <h3><span class="card-title">Herramientas</span></h3>
-                            <div class="card-content ">
-                                <ul class="collapsible white">
-                                    <li>
-                                        <div class="collapsible-header">
-                                            <i class="material-icons">filter_drama</i>
-                                            Titulos
-                                        </div>
-                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header">
-                                            <i class="material-icons">place</i>
-                                            Subtitulos
-                                        </div>
-                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header">
-                                            <i class="material-icons">filter_drama</i>
-                                            Tipo Letra
-                                        </div>
-                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header">
-                                            <i class="material-icons">place</i>
-                                            Tamaño letra
-                                        </div>
-                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header">
-                                            <i class="material-icons">filter_drama</i>
-                                            Imagen
-                                        </div>
-                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                                    </li>
-
-                                </ul>
+                        <div class="col s3 m3 l3 offset-l6 offset-m6 offset-s6  ">
+                            <div class="card-panel blue-grey lighten-2 z-depth-1">
+                                <div class="card-content ">
+                                    <ul class="collapsible white">
+                                        <li>
+                                            <div class="collapsible-header">
+                                                <i class="material-icons">filter_drama</i>
+                                                titulo
+                                            </div>
+                                            <div class="collapsible-body">
+                                                <h:inputText  value="#{blogBean.blog.titulo}" required="true"/>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div-->
-                </div>
-                <div class="container blogcontenedor-editor z-depth-5">
-                    <h:form>    
-                        <p:textEditor widgetVar="editor1"  height="300" style="margin-bottom:10px"/>
+                    </div>
+                    <div class="container blogcontenedor-editor z-depth-5">
 
-
+                        <p:textEditor widgetVar="editor1"  id="blogText"   height="300" style="margin-bottom:10px"/>
                         <div class="btn-float-send  z-depth-2 ">
-                            <a class="btn waves-effect waves-light" >
+                            <a class="btn waves-effect waves-light" onclick="enviarMensaje()" >
                                 Postear
                                 <i class="material-icons right">send</i>
                             </a>
                         </div>
-
-
-
-
                         <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade">
                             <p:outputPanel id="display">
                                 <h3 style="margin-top:0">Basic</h3>
@@ -112,9 +73,33 @@
                                 <h:outputText escape="false" />
                             </p:outputPanel>
                         </p:dialog>     
-                    </h:form>
-
+               
                 </div>
+                     </h:form>
+                <script>
+
+                    const msjobj = {
+                        userId: '',
+                        mensaje: ''
+                    };
+                    msjobj.userId = #{controlBean.obtenerUsuario().idUsuario};
+                    let url = window.location.href.split('salas/')[0].replace('http', 'ws');
+                    const ws = new WebSocket("ws://localhost:8080/Bloggestter" + '/notification/' + #{controlBean.obtenerUsuario().idUsuario});
+                    ws.onmessage = (event) => {
+                        var json=JSON.parse(event.data);
+                        if(data!==undefined){
+                            
+                        }
+                    };
+                    console.log(ws);
+                    const enviarMensaje = function () {
+                        var msj = {idusuario: #{controlBean.obtenerUsuario().idUsuario},
+                            numero: 1,
+                            data: document.querySelector('#blogText_editor').innerHTML
+                        };
+                        ws.send(JSON.stringify(msj));
+                    };
+                </script>
             </ui:define>
         </ui:composition>
     </h:body>

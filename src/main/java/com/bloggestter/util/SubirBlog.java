@@ -33,7 +33,7 @@ import org.primefaces.json.JSONObject;
  * @author ferph
  */
 @WebServlet(name = "SubirBlog", urlPatterns = {"/SubirBlog"})
-@MultipartConfig
+//@MultipartConfig
 public class SubirBlog extends HttpServlet {
 
     private static OutputStreamWriter OUTPUTWRITER;
@@ -65,27 +65,28 @@ public class SubirBlog extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Part part = request.getPart("file");
         JSONObject json = new JSONObject();
         request.setCharacterEncoding("utf8");
+        System.out.println("LLEGA");
         response.setContentType("application/json");
-
         int idU = Integer.parseInt(request.getHeader("idus"));
         String titulo = String.valueOf(request.getHeader("titulo"));
         UUID uuid = UUID.randomUUID();
-        String name = uuid.toString().split("-")[0] + "" + titulo + "" + idU + ".html";
+        String name = uuid.toString().split("-")[0] + "" + titulo + "" + idU + ".txt";
         String ruta = ManejadorArchivos.RUTA_BASE + ManejadorArchivos.HTML + "" + name;
         try {
             OUTPUTSTREAM = new FileOutputStream(new File(ruta), false);
             OUTPUTWRITER = new OutputStreamWriter(OUTPUTSTREAM, StandardCharsets.ISO_8859_1);
             OUTPUTWRITER.write(request.getParameter("fl"));
             json.put("exito", true);
-            json.put("ruta", "");
+            json.put("ruta", ruta);
             response.setStatus(200);
+            response.getWriter().write(json.toString());
         } catch (FileNotFoundException ex) {
             json.put("exito", false);
             json.put("ruta", name);
             response.setStatus(500);
+             response.getWriter().write(json.toString());
             Logger.getLogger(SubirBlog.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         } finally {
             SubirBlog.cerrarFileWrite();
